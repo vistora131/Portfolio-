@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>معرض أعمالي - فيديوهات مضافة</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=The+Sans:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet" />
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --main-color: #f2e5c3;
+      --background-color: #f7f7f7;
+      --top-bar-bg: rgba(242, 229, 195, 0.3);
+      --border-thickness: 1px;
+      --image-border-color: #000000;
+      --image-hover-filter: brightness(0.7);
+      --lightbox-bg: rgba(0, 0, 0, 0.9);
+      --counter-bg: #f2e5c3;
+      --counter-text-color: #184e4e;
+      --icon-filter: brightness(0) saturate(100%) invert(100%);
+    }
+
+    body {
+      background-color: var(--background-color);
+      background-image: url('https://f.top4top.io/p_3433nkju60.png');
+      background-size: cover;
+      background-attachment: fixed;
+      font-family: 'The Sans', sans-serif;
+    }
+
+    .top-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: var(--top-bar-bg);
+      color: white;
+      padding: 8px 20px;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom-left-radius: 15px;
+      border-bottom-right-radius: 15px;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    }
+
+    .top-bar .logo img {
+      height: 30px;
+      border-radius: 50%;
+    }
+
+    .social-icons {
+      display: flex;
+    }
+
+    .social-icons img {
+      width: 40px;
+      height: 40px;
+      margin: 0 12px;
+      transition: transform 0.3s ease, filter 0.3s ease;
+      filter: var(--icon-filter);
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .social-icons img:hover {
+      transform: scale(1.2);
+      filter: brightness(1.2);
+    }
+
+    .icon-container {
+      position: absolute;
+      top: 80px;
+      right: 10px;
+      z-index: 1000;
+    }
+
+    .icon-container img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+      filter: var(--icon-filter);
+    }
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding-top: 140px;
+      padding-bottom: 20px;
+    }
+
+    .logo-container {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      margin-bottom: 20px;
+    }
+
+    .logo-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .heading {
+      font-size: 32px;
+      font-weight: bold;
+      color: var(--main-color);
+      margin-bottom: 10px;
+    }
+
+    .subheading {
+      font-size: 18px;
+      color: var(--main-color);
+      margin-bottom: 20px;
+    }
+
+    .gallery-info {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      background-color: var(--top-bar-bg);
+      padding: 12px 20px;
+      font-family: 'Cairo', sans-serif;
+      border-radius: 15px;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+      margin: 0 auto 10px;
+      max-width: 1000px;
+    }
+
+    .filter-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .filter-btn {
+      background-color: #f2e5c3; /* بيج فاتح */
+      color: #184e4e; /* أخضر داكن */
+      border: none;
+      padding: 8px 16px;
+      border-radius: 10px;
+      font-weight: bold;
+      font-size: 14px;
+      white-space: nowrap;
+      cursor: pointer;
+      font-family: 'Cairo', sans-serif;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background-color: #f9a825; /* أصفر ذهبي */
+      color: #1a1a1a; /* محايد داكن */
+    }
+
+    #image-counter {
+      background-color: #f2e5c3;
+      color: #184e4e;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: bold;
+      font-family: 'Cairo', sans-serif;
+      margin: 0 auto 20px;
+      max-width: 1000px;
+      text-align: center;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin: 0 auto 40px;
+      max-width: 1000px;
+      padding: 0 15px;
+    }
+
+    .gallery img,
+    .gallery video {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border: var(--border-thickness) solid var(--image-border-color);
+      transition: transform 0.3s ease, filter 0.3s ease;
+      cursor: pointer;
+      border-radius: 5%;
+      background-color: black;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.05);
+      filter: var(--image-hover-filter);
+    }
+
+    /* الفيديو ما يحتاج فلتر عند hover عشان لا يتأثر العرض */
+    .gallery video:hover {
+      transform: scale(1.02);
+    }
+
+    @media (max-width: 600px) {
+      .gallery {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery-info {
+        padding: 15px 10px;
+      }
+
+      #image-counter {
+        width: calc(100% - 30px);
+      }
+    }
+
+    /* نافذة التكبير للصور فقط */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: var(--lightbox-bg);
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 10px;
+    }
+
+    .lightbox .close,
+    .lightbox .prev,
+    .lightbox .next {
+      position: absolute;
+      color: white;
+      font-size: 32px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      user-select: none;
+    }
+
+    .lightbox .close { top: 20px; right: 30px; }
+    .lightbox .prev { left: 20px; top: 50%; transform: translateY(-50%); }
+    .lightbox .next { right: 20px; top: 50%; transform: translateY(-50%); }
+
+  </style>
+</head>
+<body oncontextmenu="return false;">
+  <div class="top-bar">
+    <div class="logo">
+      <img src="https://j.top4top.io/p_3433coour0.png" alt="شعار الموقع" />
+    </div>
+    <div class="social-icons">
+      <a href="https://www.instagram.com/key_design_am/" target="_blank">
+        <img src="https://e.top4top.io/p_3289gvqk60.png" alt="إنستجرام" />
+      </a>
+      <a href="https://www.tiktok.com/@key_design7" target="_blank">
+        <img src="https://f.top4top.io/p_3286veqcz2.png" alt="تيك توك" />
+      </a>
+      <a href="https://wa.me/966545473980" target="_blank">
+        <img src="https://e.top4top.io/p_3286lpy0w1.png" alt="واتساب" />
+      </a>
+      <a href="mailto:keydesignam@gmail.com" target="_blank">
+        <img src="https://d.top4top.io/p_3286cgw8r0.png" alt="بريد إلكتروني" />
+      </a>
+    </div>
+  </div>
+
+  <div class="icon-container">
+    <a href="https://coredesign131.github.io/Link/" target="_blank">
+      <img src="https://d.top4top.io/p_3286vs1730.png" alt="عودة" />
+    </a>
+  </div>
+
+  <div class="content">
+    <div class="logo-container">
+      <img src="https://j.top4top.io/p_3433coour0.png" alt="شعار الموقع" />
+    </div>
+    <div class="heading">Core Design</div>
+    <div class="subheading">هنا سترون بعض العلامات التجارية التي صممناها</div>
+  </div>
+
+  <!-- شريط الأقسام -->
+  <div class="gallery-info">
+    <div class="filter-group">
+      <button class="filter-btn active" onclick="filterItems('الكل')">الكل</button>
+      <button class="filter-btn" onclick="filterItems('شعارات')">شعارات</button>
+      <button class="filter-btn" onclick="filterItems('بنرات')">بنرات</button>
+      <button class="filter-btn" onclick="filterItems('تصاميم سوشال ميديا')">تصاميم سوشال ميديا</button>
+      <button class="filter-btn" onclick="filterItems('دعوات وكروت')">دعوات وكروت</button>
+      <button class="filter-btn" onclick="filterItems('عروض بوربوينت')">عروض بوربوينت</button>
+    </div>
+  </div>
+
+  <!-- عداد الصور والفيديوهات -->
+  <div id="image-counter">عدد العناصر: 0</div>
+
+  <!-- معرض الأعمال (صور وفيديوهات) -->
+  <div class="gallery" id="gallery">
+    <!-- صور -->
+    <img src="https://h.top4top.io/p_3476v165k1.jpg" alt="شعار 1" data-category="شعارات" />
+    <img src="https://i.top4top.io/p_3476jm1812.jpg" alt="شعار 2" data-category="شعارات" />
+    <img src="https://j.top4top.io/p_3476hmg1x3.jpg" alt="شعار 3" data-category="شعارات" />
+    <img src="https://k.top4top.io/p_3476my80i4.jpg" alt="شعار 4" data-category="شعارات" />
+    <img src="https://l.top4top.io/p_3476xjtrn5.jpg" alt="شعار 5" data-category="شعارات" />
+    <img src="https://a.top4top.io/p_34766lz5b6.jpg" alt="شعار 6" data-category="شعارات" />
+    <img src="https://b.top4top.io/p_34763mk657.jpg" alt="شعار 7" data-category="شعارات" />
+    <img src="https://c.top4top.io/p_3476lbtpu8.jpg" alt="شعار 8" data-category="شعارات" />
+    <img src="https://d.top4top.io/p_3476obnjk9.jpg" alt="شعار 9" data-category="شعارات" />
+    <img src="https://k.top4top.io/p_3476pcoin0.jpg" alt="شعار 10" data-category="شعارات" />
+    <img src="https://b.top4top.io/p_3476r3thb0.jpg" alt="شعار 11" data-category="شعارات" />
+    <img src="https://l.top4top.io/p_3476gvmot1.jpg" alt="تصاميم سوشال ميديا" data-category="تصاميم سوشال ميديا" />
+
+
+
+
+    
+    <!-- فيديوهات -->
+    <video controls preload="metadata" data-category="عروض بوربوينت" poster="file:///C:/Users/hayya/Pictures/Screenshots/%D9%84%D9%82%D8%B7%D8%A9%20%D8%B4%D8%A7%D8%B4%D8%A9%202025-08-02%20160327.png">
+      <source src="file:///C:/Users/hayya/Downloads/%D8%B4%D8%A7%D8%B4%D8%A7%D8%AA%20%D8%AF%D9%88%D8%B1%D9%8A%D8%A7%D9%86.mp4" type="video/mp4" />
+      متصفحك لا يدعم تشغيل الفيديو.
+    </video>
+
+
+
+    
+  </div>
+  <script>
+  let currentIndex = 0;
+  let currentItems = [];
+
+  function updateItemCounter() {
+    const visibleItems = [...document.querySelectorAll('#gallery > img, #gallery > video')]
+      .filter(item => item.style.display !== 'none');
+    document.getElementById('image-counter').textContent = `عدد العناصر: ${visibleItems.length}`;
+  }
+
+  function filterItems(category) {
+    const items = [...document.querySelectorAll('#gallery > img, #gallery > video')];
+    const buttons = document.querySelectorAll('.filter-btn');
+
+    buttons.forEach(btn => {
+      btn.classList.remove('active');
+      if (btn.textContent === category) btn.classList.add('active');
+    });
+
+    items.forEach(item => {
+      const itemCategory = item.getAttribute('data-category');
+      if (category === 'الكل' || itemCategory === category) {
+        item.style.display = 'block';
+      } else {
+        item.style.display = 'none';
+      }
+    });
+
+    updateClickEvents();
+    updateItemCounter();
+  }
+
+  function updateClickEvents() {
+    // نعرض التكبير فقط على الصور المعروضة (مو الفيديو)
+    currentItems = [...document.querySelectorAll('#gallery > img')]
+      .filter(img => img.style.display !== 'none');
+
+    currentItems.forEach((img, index) => {
+      img.style.cursor = 'pointer';
+      img.onclick = () => openLightbox(index);
+    });
+
+    // تعطيل النقر على الفيديو (عشان ما يفتح تكبير)
+    const videos = [...document.querySelectorAll('#gallery > video')];
+    videos.forEach(video => {
+      video.onclick = null;
+      video.style.cursor = 'default';
+    });
+  }
+
+  function openLightbox(index) {
+    currentIndex = index;
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImage = document.getElementById('lightboxImage');
+    lightboxImage.src = currentItems[currentIndex].src;
+    lightbox.style.display = 'flex';
+  }
+
+  function closeLightbox(e) {
+    if (!e || e.target === document.getElementById('lightbox') || e.target.classList.contains('close')) {
+      document.getElementById('lightbox').style.display = 'none';
+    }
+  }
+
+  function showNext(e) {
+    e.stopPropagation();
+    if (currentIndex < currentItems.length - 1) {
+      currentIndex++;
+      document.getElementById('lightboxImage').src = currentItems[currentIndex].src;
+    }
+  }
+
+  function showPrev(e) {
+    e.stopPropagation();
+    if (currentIndex > 0) {
+      currentIndex--;
+      document.getElementById('lightboxImage').src = currentItems[currentIndex].src;
+    }
+  }
+
+  window.onload = () => {
+    filterItems('الكل');
+  };
+</script>
+
+<!-- نافذة التكبير (Lightbox) الصور فقط -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <button class="close" onclick="closeLightbox()">×</button>
+  <button class="prev" onclick="showPrev(event)">❮</button>
+  <img id="lightboxImage" src="" alt="صورة مكبرة" />
+  <button class="next" onclick="showNext(event)">❯</button>
+</div>
