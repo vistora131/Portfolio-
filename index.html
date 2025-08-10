@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>معرض أعمالي - فيديوهات مضافة</title>
+  <title> vistora_design portfolio </title>
 
   <link href="https://fonts.googleapis.com/css2?family=The+Sans:wght@400;700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet" />
@@ -14,19 +14,22 @@
     :root {
       --main-color: #f2e5c3;
       --background-color: #f7f7f7;
-      --top-bar-bg: rgba(242, 229, 195, 0.3);
+      --top-bar-bg: #7c695c; /* بدل من rgba السابقة */
       --border-thickness: 1px;
       --image-border-color: #000000;
       --image-hover-filter: brightness(0.7);
       --lightbox-bg: rgba(0, 0, 0, 0.9);
-      --counter-bg: #f2e5c3;
-      --counter-text-color: #184e4e;
-      --icon-filter: brightness(0) saturate(100%) invert(100%);
+      --counter-bg: #3d2618; /* لون العداد */
+      --counter-text-color: #f3e3d3; /* لون نص العداد */
+      --filter-btn-bg: #3d2618; /* أزرار الأقسام */
+      --filter-btn-text: #f3e3d3; /* نص أزرار الأقسام */
+      --icon-filter: invert(93%) sepia(8%) saturate(162%) hue-rotate(166deg) brightness(116%) contrast(87%); /* فلتر لون أيقونات التواصل */
+      --icon-hover-filter: brightness(1.2);
     }
 
     body {
       background-color: var(--background-color);
-      background-image: url('https://f.top4top.io/p_3433nkju60.png');
+      background-image: url('https://h.top4top.io/p_35090mj040.png');
       background-size: cover;
       background-attachment: fixed;
       font-family: 'The Sans', sans-serif;
@@ -38,7 +41,7 @@
       left: 0;
       width: 100%;
       background-color: var(--top-bar-bg);
-      color: white;
+      color: var(--counter-text-color);
       padding: 8px 20px;
       z-index: 1000;
       display: flex;
@@ -58,7 +61,7 @@
       display: flex;
     }
 
-    .social-icons img {
+    .social-icons a img {
       width: 40px;
       height: 40px;
       margin: 0 12px;
@@ -68,9 +71,9 @@
       border-radius: 50%;
     }
 
-    .social-icons img:hover {
+    .social-icons a img:hover {
       transform: scale(1.2);
-      filter: brightness(1.2);
+      filter: var(--icon-hover-filter);
     }
 
     .icon-container {
@@ -80,12 +83,17 @@
       z-index: 1000;
     }
 
-    .icon-container img {
+    .icon-container a img {
       width: 50px;
       height: 50px;
       border-radius: 50%;
       cursor: pointer;
       filter: var(--icon-filter);
+      transition: filter 0.3s ease;
+    }
+
+    .icon-container a img:hover {
+      filter: var(--icon-hover-filter);
     }
 
     .content {
@@ -147,8 +155,8 @@
     }
 
     .filter-btn {
-      background-color: #f2e5c3; /* بيج فاتح */
-      color: #184e4e; /* أخضر داكن */
+      background-color: var(--filter-btn-bg);
+      color: var(--filter-btn-text);
       border: none;
       padding: 8px 16px;
       border-radius: 10px;
@@ -167,8 +175,8 @@
     }
 
     #image-counter {
-      background-color: #f2e5c3;
-      color: #184e4e;
+      background-color: var(--counter-bg);
+      color: var(--counter-text-color);
       padding: 8px 16px;
       border-radius: 8px;
       font-size: 14px;
@@ -248,12 +256,19 @@
     .lightbox .prev,
     .lightbox .next {
       position: absolute;
-      color: white;
+      color: var(--counter-text-color);
       font-size: 32px;
       cursor: pointer;
       background: none;
       border: none;
       user-select: none;
+      transition: color 0.3s ease;
+    }
+
+    .lightbox .close:hover,
+    .lightbox .prev:hover,
+    .lightbox .next:hover {
+      color: #f9a825; /* أصفر ذهبي */
     }
 
     .lightbox .close { top: 20px; right: 30px; }
@@ -265,33 +280,33 @@
 <body oncontextmenu="return false;">
   <div class="top-bar">
     <div class="logo">
-      <img src="https://j.top4top.io/p_3433coour0.png" alt="شعار الموقع" />
+      <img src="https://g.top4top.io/p_3509ial6i2.png" alt="شعار الموقع" />
     </div>
     <div class="social-icons">
-      <a href="https://www.instagram.com/key_design_am/" target="_blank">
+      <a href="https://www.instagram.com/vistora131" target="_blank">
         <img src="https://e.top4top.io/p_3289gvqk60.png" alt="إنستجرام" />
       </a>
-      <a href="https://www.tiktok.com/@key_design7" target="_blank">
+      <a href="https://www.tiktok.com/@vistora_design" target="_blank">
         <img src="https://f.top4top.io/p_3286veqcz2.png" alt="تيك توك" />
       </a>
-      <a href="https://wa.me/966545473980" target="_blank">
+      <a href="https://wa.me/966548223192" target="_blank">
         <img src="https://e.top4top.io/p_3286lpy0w1.png" alt="واتساب" />
       </a>
-      <a href="mailto:keydesignam@gmail.com" target="_blank">
+      <a href="mailto:vistora131@gmail.com" target="_blank">
         <img src="https://d.top4top.io/p_3286cgw8r0.png" alt="بريد إلكتروني" />
       </a>
     </div>
   </div>
 
   <div class="icon-container">
-    <a href="https://vistora131.github.io/Links/" target="_blank">
+    <a href="https://vistora131.github.io/Links/" target="_blank" style="filter: var(--icon-filter);">
       <img src="https://d.top4top.io/p_3286vs1730.png" alt="عودة" />
     </a>
   </div>
 
   <div class="content">
     <div class="logo-container">
-      <img src="https://j.top4top.io/p_3433coour0.png" alt="شعار الموقع" />
+      <img src="https://g.top4top.io/p_3509ial6i2.png" alt="شعار الموقع" />
     </div>
     <div class="heading">Core Design</div>
     <div class="subheading">هنا سترون بعض العلامات التجارية التي صممناها</div>
@@ -333,7 +348,7 @@
 
     
     <!-- فيديوهات -->
-    <video controls preload="metadata" data-category="عروض بوربوينت" poster="file:///C:/Users/hayya/Pictures/Screenshots/%D9%84%D9%82%D8%B7%D8%A9%20%D8%B4%D8%A7%D8%B4%D8%A9%202025-08-02%20160327.png">
+    <video controls preload="metadata" data-category="عروض بوربوينت" poster="file:///C:/Users/hayya/Pictures/Screenshots/%D9%84%D9%82%D8%B7%D8%A9%20%D8%B4%D8%A7%D8%B4%D8%A7%202025-08-02%20160327.png">
       <source src="file:///C:/Users/hayya/Downloads/%D8%B4%D8%A7%D8%B4%D8%A7%D8%AA%20%D8%AF%D9%88%D8%B1%D9%8A%D8%A7%D9%86.mp4" type="video/mp4" />
       متصفحك لا يدعم تشغيل الفيديو.
     </video>
@@ -356,82 +371,4 @@
     const items = [...document.querySelectorAll('#gallery > img, #gallery > video')];
     const buttons = document.querySelectorAll('.filter-btn');
 
-    buttons.forEach(btn => {
-      btn.classList.remove('active');
-      if (btn.textContent === category) btn.classList.add('active');
-    });
-
-    items.forEach(item => {
-      const itemCategory = item.getAttribute('data-category');
-      if (category === 'الكل' || itemCategory === category) {
-        item.style.display = 'block';
-      } else {
-        item.style.display = 'none';
-      }
-    });
-
-    updateClickEvents();
-    updateItemCounter();
-  }
-
-  function updateClickEvents() {
-    // نعرض التكبير فقط على الصور المعروضة (مو الفيديو)
-    currentItems = [...document.querySelectorAll('#gallery > img')]
-      .filter(img => img.style.display !== 'none');
-
-    currentItems.forEach((img, index) => {
-      img.style.cursor = 'pointer';
-      img.onclick = () => openLightbox(index);
-    });
-
-    // تعطيل النقر على الفيديو (عشان ما يفتح تكبير)
-    const videos = [...document.querySelectorAll('#gallery > video')];
-    videos.forEach(video => {
-      video.onclick = null;
-      video.style.cursor = 'default';
-    });
-  }
-
-  function openLightbox(index) {
-    currentIndex = index;
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImage = document.getElementById('lightboxImage');
-    lightboxImage.src = currentItems[currentIndex].src;
-    lightbox.style.display = 'flex';
-  }
-
-  function closeLightbox(e) {
-    if (!e || e.target === document.getElementById('lightbox') || e.target.classList.contains('close')) {
-      document.getElementById('lightbox').style.display = 'none';
-    }
-  }
-
-  function showNext(e) {
-    e.stopPropagation();
-    if (currentIndex < currentItems.length - 1) {
-      currentIndex++;
-      document.getElementById('lightboxImage').src = currentItems[currentIndex].src;
-    }
-  }
-
-  function showPrev(e) {
-    e.stopPropagation();
-    if (currentIndex > 0) {
-      currentIndex--;
-      document.getElementById('lightboxImage').src = currentItems[currentIndex].src;
-    }
-  }
-
-  window.onload = () => {
-    filterItems('الكل');
-  };
-</script>
-
-<!-- نافذة التكبير (Lightbox) الصور فقط -->
-<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
-  <button class="close" onclick="closeLightbox()">×</button>
-  <button class="prev" onclick="showPrev(event)">❮</button>
-  <img id="lightboxImage" src="" alt="صورة مكبرة" />
-  <button class="next" onclick="showNext(event)">❯</button>
-
-</div>
+    buttons.forEach(btn =>
