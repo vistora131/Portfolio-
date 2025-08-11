@@ -35,6 +35,27 @@
       font-family: 'The Sans', sans-serif;
     }
 
+    /* منع سحب الصور بشكل عام */
+    img {
+      -webkit-user-drag: none;
+      user-select: none;
+      -moz-user-select: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+      pointer-events: auto; /* يسمح بالتفاعل مع الصور */
+    }
+
+    /* تعطيل التحديد (highlight) للنص على الصور */
+    img::selection {
+      background: transparent;
+    }
+
+    /* منع سحب الفيديو */
+    video {
+      -webkit-user-drag: none;
+      user-select: none;
+    }
+
     .top-bar {
       position: fixed;
       top: 0;
@@ -166,6 +187,7 @@
       cursor: pointer;
       font-family: 'Cairo', sans-serif;
       transition: background-color 0.3s ease, color 0.3s ease;
+      user-select: none; /* منع تحديد النص */
     }
 
     .filter-btn:hover,
@@ -185,27 +207,31 @@
       margin: 0 auto 20px;
       max-width: 1000px;
       text-align: center;
+      user-select: none;
     }
 
+    /* تعديل معرض الصور ليصبح بأسلوب Masonry (شبكة متباينة الارتفاع) */
     .gallery {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin: 0 auto 40px;
+      column-count: 3;
+      column-gap: 15px;
       max-width: 1000px;
+      margin: 0 auto 40px;
       padding: 0 15px;
     }
 
     .gallery img,
     .gallery video {
       width: 100%;
-      height: 250px;
-      object-fit: cover;
+      margin-bottom: 15px;
       border: var(--border-thickness) solid var(--image-border-color);
       transition: transform 0.3s ease, filter 0.3s ease;
       cursor: pointer;
       border-radius: 5%;
       background-color: black;
+      display: inline-block; /* ضروري لعمود Masonry */
+      object-fit: contain; /* عشان يحافظ على النسبة الأصلية للصورة */
+      user-select: none; /* منع تحديد النص */
+      -webkit-user-drag: none; /* منع سحب */
     }
 
     .gallery img:hover {
@@ -218,9 +244,15 @@
       transform: scale(1.02);
     }
 
+    @media (max-width: 900px) {
+      .gallery {
+        column-count: 2;
+      }
+    }
+
     @media (max-width: 600px) {
       .gallery {
-        grid-template-columns: 1fr;
+        column-count: 1;
       }
 
       .gallery-info {
@@ -231,6 +263,7 @@
         width: calc(100% - 30px);
       }
     }
+
     /* نافذة التكبير للصور فقط */
     .lightbox {
       display: none;
@@ -249,6 +282,8 @@
       max-width: 90%;
       max-height: 90%;
       border-radius: 10px;
+      user-select: none;
+      -webkit-user-drag: none;
     }
 
     .lightbox .close,
@@ -269,7 +304,11 @@
 
   </style>
 </head>
-<body oncontextmenu="return false;">
+<body 
+  oncontextmenu="return false;" /* منع القائمة بالزر الأيمن في الصفحة كاملة */
+  ondragstart="return false;"   /* منع سحب العناصر بالصفحة */
+  onselectstart="return false;" /* منع تحديد النصوص */
+>
   <div class="top-bar">
     <div class="logo">
       <img src="https://g.top4top.io/p_3509ial6i2.png" alt="شعار الموقع" />
@@ -308,7 +347,7 @@
   <div class="gallery-info">
     <div class="filter-group">
       <button class="filter-btn active" onclick="filterItems('الكل')">الكل</button>
-      <button class="filter-btn" onclick="filterItems('هويات')">شعارات</button>
+      <button class="filter-btn" onclick="filterItems('هويات')">هويات </button>
       <button class="filter-btn" onclick="filterItems('بنرات')">بنرات</button>
       <button class="filter-btn" onclick="filterItems('تصاميم سوشال ميديا')">تصاميم سوشال ميديا</button>
       <button class="filter-btn" onclick="filterItems('دعوات وكروت')">دعوات وكروت</button>
@@ -335,64 +374,32 @@
     <img src="https://d.top4top.io/p_3476obnjk9.jpg" alt="شعار 9" data-category="هويات" />
     <img src="https://k.top4top.io/p_3476pcoin0.jpg" alt="شعار 10" data-category="هويات" />
     <img src="https://b.top4top.io/p_3476r3thb0.jpg" alt="شعار 11" data-category="هويات" />
-<img src="https://h.top4top.io/p_3509isi6r5.jpg" alt="شعار 12" data-category="هويات" />
+    <img src="https://h.top4top.io/p_3509isi6r5.jpg" alt="شعار 12" data-category="هويات" />
     <img src="https://l.top4top.io/p_35097ttm99.jpg" alt="شعار 13" data-category="هويات" />
     <img src="https://l.top4top.io/p_35094g3xc1.jpg" alt="شعار 14" data-category="هويات" />
     <img src="https://a.top4top.io/p_35099wwzc2.jpg" alt="شعار 15" data-category="هويات" />
     <img src="https://e.top4top.io/p_3509j42ne6.png" alt="شعار 16" data-category="هويات" />
-    
 
-    
-    
-    
     <img src="https://e.top4top.io/p_3509imlm32.png" alt="بنرات" data-category="بنرات" />
 
-
-
-
-    
-    
-    
-    
     <img src="https://k.top4top.io/p_3509s6x9o0.png" alt="تصاميم سوشال ميديا" data-category="تصاميم سوشال ميديا" />
-<img src="https://c.top4top.io/p_35091ayz94.png" alt="تصاميم سوشال ميديا" data-category="تصاميم سوشال ميديا" />
-<img src="https://d.top4top.io/p_3509vs8om5.png" alt="تصاميم سوشال ميديا" data-category="تصاميم سوشال ميديا" />
+    <img src="https://c.top4top.io/p_35091ayz94.png" alt="تصاميم سوشال ميديا" data-category="تصاميم سوشال ميديا" />
+    <img src="https://d.top4top.io/p_3509vs8om5.png" alt="تصاميم سوشال ميديا" data-category="تصاميم سوشال ميديا" />
     <img src="https://l.top4top.io/p_3476gvmot1.jpg" alt="تصاميم سوشال ميديا" data-category="تصاميم سوشال ميديا" />
-<img src="https://f.top4top.io/p_3509g418y7.png" alt="تصاميم سوشال ميديا" data-category="تصاميم سوشال ميديا" />
+    <img src="https://f.top4top.io/p_3509g418y7.png" alt="تصاميم سوشال ميديا" data-category="تصاميم سوشال ميديا" />
 
+    <img src="https://c.top4top.io/p_35095k1pi0.png" alt="لايف ستريم" data-category="لايف ستريم" />
 
+    <img src="https://a.top4top.io/p_3509xdyhp0.jpg" alt="ترويسات" data-category="ترويسات" />
+    <img src="https://b.top4top.io/p_3509jtpet1.jpg" alt="ترويسات" data-category="ترويسات" />
+    <img src="https://c.top4top.io/p_3509sh5ey2.jpg" alt="ترويسات" data-category="ترويسات" />
+    <img src="https://d.top4top.io/p_3509emiuj3.jpg" alt="ترويسات" data-category="ترويسات" />
+    <img src="https://e.top4top.io/p_3509xx5144.jpg" alt="ترويسات" data-category="ترويسات" />
+    <img src="https://f.top4top.io/p_3509ss2925.jpg" alt="ترويسات" data-category="ترويسات" />
 
-
-
-
-
-<img src="https://c.top4top.io/p_35095k1pi0.png" alt="لايف ستريم" data-category="لايف ستريم" />
-
-
-
-
-
-<img src="https://a.top4top.io/p_3509xdyhp0.jpg" alt="ترويسات" data-category="ترويسات" />
-<img src="https://b.top4top.io/p_3509jtpet1.jpg" alt="ترويسات" data-category="ترويسات" />
-<img src="https://c.top4top.io/p_3509sh5ey2.jpg" alt="ترويسات" data-category="ترويسات" />
-<img src="https://d.top4top.io/p_3509emiuj3.jpg" alt="ترويسات" data-category="ترويسات" />
-<img src="https://e.top4top.io/p_3509xx5144.jpg" alt="ترويسات" data-category="ترويسات" />
-<img src="https://f.top4top.io/p_3509ss2925.jpg" alt="ترويسات" data-category="ترويسات" />
-
-
-
-
-
-
-
-    
-
-
-
-    
     <!-- فيديوهات -->
-    <video controls preload="metadata" data-category="عروض بوربوينت" poster="file:///C:/Users/hayya/Pictures/Screenshots/%D9%84%D9%82%D8%B7%D8%A9%20%D8%B4%D8%A7%D8%B4%D8%A9%202025-08-02%20160327.png">
-      <source src="file:///C:/Users/hayya/Downloads/%D8%B4%D8%A7%D8%B4%D8%A7%D8%AA%20%D8%AF%D9%88%D8%B1%D9%8A%D8%A7%D9%86.mp4" type="video/mp4" />
+    <video controls preload="metadata" data-category="عروض بوربوينت" poster="">
+      <source src="path-to-video.mp4" type="video/mp4" />
       متصفحك لا يدعم تشغيل الفيديو.
     </video>
   </div>
@@ -418,7 +425,7 @@
       items.forEach(item => {
         const itemCategory = item.getAttribute('data-category');
         if (category === 'الكل' || itemCategory === category) {
-          item.style.display = 'block';
+          item.style.display = 'inline-block'; // مهم لعرض Masonry
         } else {
           item.style.display = 'none';
         }
@@ -436,6 +443,9 @@
       currentItems.forEach((img, index) => {
         img.style.cursor = 'pointer';
         img.onclick = () => openLightbox(index);
+        // منع تحميل الصورة بالضغط المطول (touch)
+        img.ondragstart = (e) => e.preventDefault();
+        img.oncontextmenu = (e) => e.preventDefault();
       });
 
       // تعطيل النقر على الفيديو (عشان ما يفتح تكبير)
@@ -452,11 +462,19 @@
       const lightboxImage = document.getElementById('lightboxImage');
       lightboxImage.src = currentItems[currentIndex].src;
       lightbox.style.display = 'flex';
+
+      // منع تحميل الصورة من النافذة المكبرة
+      lightboxImage.setAttribute('draggable', 'false');
+      lightboxImage.oncontextmenu = e => e.preventDefault();
+
+      // التركيز على النافذة لالتقاط أحداث لوحة المفاتيح
+      lightbox.focus();
     }
 
     function closeLightbox(e) {
       if (!e || e.target === document.getElementById('lightbox') || e.target.classList.contains('close')) {
         document.getElementById('lightbox').style.display = 'none';
+        document.getElementById('lightboxImage').src = '';
       }
     }
 
@@ -476,19 +494,32 @@
       }
     }
 
+    // تحسين تجربة المستخدم بالكيبورد (سهم يمين، سهم يسار، Esc)
+    document.addEventListener('keydown', (e) => {
+      const lightbox = document.getElementById('lightbox');
+      if (lightbox.style.display === 'flex') {
+        if (e.key === 'ArrowRight') {
+          showNext(e);
+        } else if (e.key === 'ArrowLeft') {
+          showPrev(e);
+        } else if (e.key === 'Escape') {
+          closeLightbox();
+        }
+      }
+    });
+
     window.onload = () => {
       filterItems('الكل');
     };
   </script>
 
   <!-- نافذة التكبير (Lightbox) الصور فقط -->
-  <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <div class="lightbox" id="lightbox" tabindex="0" onclick="closeLightbox(event)">
     <button class="close" onclick="closeLightbox()">×</button>
     <button class="prev" onclick="showPrev(event)">❮</button>
-    <img id="lightboxImage" src="" alt="صورة مكبرة" />
+    <img id="lightboxImage" src="" alt="صورة مكبرة" draggable="false" oncontextmenu="return false;" />
     <button class="next" onclick="showNext(event)">❯</button>
   </div>
 
 </body>
 </html>
-
